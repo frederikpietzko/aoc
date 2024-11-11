@@ -19,4 +19,13 @@ create-gleam-day year day:
         "just get-data {{year}} {{day}}"
     cd {{year}}/day_{{day}}/ && \
     gleam new . && \
-    gleam add simplifile
+    gleam add simplifile argv && \
+    rm -rf .github
+
+run-gleam year day:
+    cd {{year}}/day_{{day}} && \
+    gleam run ./input.txt
+
+test-gleam year day:
+    cd {{year}}/day_{{day}} && \
+    gleam test

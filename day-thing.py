@@ -1,4 +1,4 @@
-#!./venv/bin/python3
+#!/usr/bin/python3
 import sys
 from bs4 import BeautifulSoup
 
