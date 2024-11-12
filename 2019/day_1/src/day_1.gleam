@@ -1,16 +1,17 @@
 import gleam/int
 import gleam/list
-import gleam/string
 import gleam/result
 import gleam/io
-import simplifile.{read}
-import argv
+import utils
 
 pub fn main() {
-  let assert Ok(filename) = list.last(argv.load().arguments)
-  let assert Ok(lines) = read_file(filename)
+  let assert Ok(lines) = utils.filename()
+    |> result.map(utils.lines)
+    |> result.map(result.nil_error)
+    |> result.flatten
+
   let masses = lines
-  |> list.filter_map(int.parse)
+    |> list.filter_map(int.parse)
   part_1(masses)
   part_2(masses)
   0
@@ -39,9 +40,4 @@ fn part_1(masses: List(Int)) {
   |> list.map(fn (a) { a / 3 - 2})
   |> int.sum
   io.println(int.to_string(fuel))
-}
-
-fn read_file(file: String) -> Result(List(String), simplifile.FileError) {
-  read(from: file)
-    |> result.map(fn(a) {string.split(a, "\n")})
 }

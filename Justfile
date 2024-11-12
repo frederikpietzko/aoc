@@ -19,8 +19,10 @@ create-gleam-day year day:
         "just get-data {{year}} {{day}}"
     cd {{year}}/day_{{day}}/ && \
     gleam new . && \
-    gleam add simplifile argv && \
     rm -rf .github
+    day={{day}} envsubst < gleam.toml.template > {{year}}/day_{{day}}/gleam.toml
+    cd {{year}}/day_{{day}}/ && \
+    gleam update
 
 run-gleam year day:
     cd {{year}}/day_{{day}} && \
